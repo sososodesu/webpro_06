@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>天気予想</title>
+</head>
+<body>
+    <p>あなたの予想は<%= your %>です.</p>
+    <p>明日の天気は<%= cpu %>です．</p>
+    <p>判定：<%= judgement %></p>
+    <p>現在<%= total %>回中<%= win %>回的中しています．</p>
+    <hr>
+    <form action="/whether">
+        <input type="text" name="whether" required>
+        <label for="whether">次は何を出す？</label>
+        <input type="hidden" name="win" value="<%= win %>">
+        <input type="hidden" name="total" value="<%= total %>">
+        <input type="submit" values="じゃんけん　ポン">
+    </form>   
+</body>
+</html>
