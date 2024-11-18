@@ -10,7 +10,7 @@ app5.js|プログラム本体
 public/janken.html|じゃんけん開始画面
 janken.ejs|じゃんけんファイル
 ```javascript
-共通ファイル　app5.js
+1.共通ファイル　app5.js
 const express = require("express");
 const app = express();
 
@@ -138,7 +138,7 @@ res.render( 'whether', display );
 
 app.listen(8080, () => console.log("Example app listening on port 8080!"));
 
-janken.html
+2.janken.html
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -156,7 +156,7 @@ janken.html
 </body>
 </html>
 
-janken.ejs
+3.janken.ejs
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -216,7 +216,7 @@ number.ejs|数予想ファイル
 
 ```javascript
 
-number.html
+1.number.html
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -235,7 +235,7 @@ number.html
 </body>
 </html>
 
-number.ejs
+2.number.ejs
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -286,7 +286,7 @@ loose --> end1
 ```
 
 ```javascript
-whether.html
+1.whether.html
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -305,7 +305,7 @@ whether.html
 </body>
 </html>
 
-whether.ejs
+2.whether.ejs
 <!DOCTYPE html>
 <html lang="ja">
 <head>
