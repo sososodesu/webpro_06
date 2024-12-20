@@ -64,34 +64,43 @@ app.get("/janken", (req, res) => {
   res.render( 'janken', display );
 });
 
-app.get('/number', (req,res) => {
+app.get('/number', (req, res) => {
   let number = req.query.number;
-  let win = Number( req.query.win )||0;
-  let total = Number( req.query.total )||0;
-  console.log( {number, win, total});
-  const num = Math.floor( Math.random()* 3+1);
-let cpu = '';
-if( num==1 ) cpu = '1';
-else if( num==2 ) cpu = '2';
-else if( num==3 ) cpu = '3';
-let judgement='';
-if ((number == '3' && cpu == '3') || (number == '2' && cpu == '2')) {
-  judgement='正解';
-win +=1;}
-  else{
+  let win = Number(req.query.win) || 0;
+  let total = Number(req.query.total) || 0;
+
+  // 入力値のバリデーション
+  if (!['1', '2', '3'].includes(number)) {
+    return res.render('error', { message: '1〜3の数字を入力してください。' });
+  }
+
+  console.log({ number, win, total });
+
+  const num = Math.floor(Math.random() * 3 + 1);
+  let cpu = '';
+  if (num == 1) cpu = '1';
+  else if (num == 2) cpu = '2';
+  else if (num == 3) cpu = '3';
+
+  let judgement = '';
+  if ((number == '3' && cpu == '3') || (number == '2' && cpu == '2') || (number == '1' && cpu == '1')) {
+    judgement = '正解';
+    win += 1;
+  } else {
     judgement = 'ハズレ';
   }
 
-
   total += 1;
+
   const display = {
     your: number,
     cpu: cpu,
     judgement: judgement,
     win: win,
-    total: total
-  }
-  res.render( 'number', display );
+    total: total,
+  };
+
+  res.render('number', display);
 });
 
 app.get('/whether', (req,res) => {
