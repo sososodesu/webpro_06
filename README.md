@@ -76,26 +76,33 @@
 質問は順番通りに表示され、すべての質問を回答しない限り、次に進むことはできない。
 
 ```mermaid
-flowchart TD;
+flowchart TD
     start["開始"]
     end1["終了"]
-    check["質問ページにアクセス"]
-    question["質問表示"]
-    answer["回答選択"]
+    check["ユーザーが質問ページにアクセス"]
+    question["最初の質問"]
+    answer["質問に回答"]
     score_add["スコア加算"]
     next_question["次の質問"]
-    calculate_score["スコア合計"]
-    age_group["精神年齢判定"]
-    results["結果表示"]
+    result_calculate["スコア計算"]
+    mental_age["精神年齢判定"]
+    display_results["結果表示"]
+    repeat_question["次の質問を表示"]
 
     start --> check
     check --> question
     question --> answer
     answer --> score_add
     score_add --> next_question
-    next_question -->|全問終了| calculate_score
-    calculate_score --> age_group
-    age_group --> results
-    results --> end1
+    next_question --> repeat_question
+    repeat_question -->|すべての質問が終了| result_calculate
+    result_calculate --> mental_age
+    mental_age --> display_results
+    display_results --> end1
+    next_question -->|質問がまだある| question
+
+    %% 条件分岐：全ての質問が終了したら結果に進む
+    repeat_question -->|終了| result_calculate
+    repeat_question -->|続ける| next_question
 ```
 
