@@ -75,6 +75,7 @@
 
 質問は順番通りに表示され、すべての質問を回答しない限り、次に進むことはできない。
 
+```mermaid
 flowchart TD;
     start["開始"]
     end1["終了"]
@@ -96,3 +97,5 @@ flowchart TD;
     calculate_score --> age_group
     age_group --> results
     results --> end1
+```
+
