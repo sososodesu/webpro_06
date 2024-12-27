@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>精神年齢診断の時間だぜええ？</title>
+</head>
+<body>
+    <h1><%= question.question %></h1>
+    <form action="/answer" method="POST">
+        <input type="hidden" name="currentQuestionIndex" value="<%= currentQuestionIndex %>">
+        <input type="hidden" name="userScore" value="<%= userScore %>">
+        <% question.options.forEach(option => { %>
+            <div>
+                <label>
+                    <input type="radio" name="optionScore" value="<%= option.score %>">
+                    <%= option.text %>
+                </label>
+            </div>
+        <% }); %>
+        <button type="submit">次へ</button>
+    </form>
+</body>
+</html>
