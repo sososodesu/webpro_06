@@ -28,7 +28,7 @@ document.querySelector('#post').addEventListener('click', () => {
         });
 });
 
-// サーバーから新しい投稿を定期的に確認
+
 document.querySelector('#check').addEventListener('click', () => {
     const params = {
         method: "POST",
@@ -78,12 +78,11 @@ document.querySelector('#check').addEventListener('click', () => {
                             mes_area.className = 'mes';
                             mes_area.innerText = mes.message;
 
-                          // タイムスタンプを追加
-   // タイムスタンプの表示（「Posted at」の部分は削除）
+                        
    let timestamp_area = document.createElement('span');
    timestamp_area.className = 'timestamp';
-   const timestamp = new Date(mes.createdAt); // サーバーから返されたタイムスタンプを Date オブジェクトに変換
-   timestamp_area.innerText = timestamp.toLocaleString(); // ローカル形式で表示
+   const timestamp = new Date(mes.createdAt); 
+   timestamp_area.innerText = timestamp.toLocaleString(); 
 
                             // 編集ボタン
                             let edit_button = document.createElement('button');

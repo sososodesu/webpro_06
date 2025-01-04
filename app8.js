@@ -2,7 +2,7 @@
 const express = require("express");
 const app = express();
 
-let bbs = [];  // 本来はDBMSを使用するが，今回はこの変数にデータを蓄える
+let bbs = [];  
 let userid = 1;
 
 app.set('view engine', 'ejs');
@@ -112,20 +112,19 @@ app.post("/post", (req, res) => {
 
 
 app.put("/bbs/:id", (req, res) => {
-  const id = Number(req.params.id); // リクエストされた投稿ID
-  const newmessage = req.body.message; // 新しいメッセージ
+  const id = Number(req.params.id); 
+  const newmessage = req.body.message; 
 
   console.log(`PUT /bbs/${id}, New Message: ${newmessage}`);
 
-  // IDで投稿を検索
   const post = bbs.find(post => post.id === id);
 
   if (post) {
-    // メッセージを更新
+ 
     post.message = newmessage;
-    res.json({ success: true, updatedPost: post }); // 成功レスポンス
+    res.json({ success: true, updatedPost: post }); 
   } else {
-    // 該当IDが存在しない場合
+   
     res.status(404).json({ success: false, message: "Post not found" });
   }
 });
@@ -135,15 +134,15 @@ app.delete("/bbs/:id", (req, res) => {
   console.log(`DELETEリクエスト: ${req.params.id}`);
   const id = Number(req.params.id);
 
-  // 投稿のインデックスを検索
+ 
   const index = bbs.findIndex(post => post.id === id);
 
   if (index !== -1) {
-      // インデックスが見つかった場合、投稿を削除
+
       const deletedPost = bbs.splice(index, 1)[0];
       res.json({ success: true, deletedPost });
   } else {
-      // 投稿が見つからない場合、404エラーを返す
+
       res.status(404).json({ success: false, message: "Post not found" });
   }
 });
