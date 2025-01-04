@@ -1,0 +1,33 @@
+.cover {
+    border-bottom: 1px solid #c0c0c0;
+    margin: 3px;
+    
+    
+}
+
+.name {
+    font-weight: bold;
+    width: 8em;
+}
+
+.mes {
+    margin-left: 30px;
+    
+    line-height: 30px;
+}
+
+.edit-button,
+.delete-button {
+    margin-left: 5px; /* ボタン同士の間隔 */
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.9em;
+}   
+
+.timestamp {
+    font-size: 0.9em;
+    color: #666;
+    margin-left: 10px; /* ボタンとタイムスタンプの間の余白 */
+}

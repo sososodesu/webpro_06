@@ -3,7 +3,6 @@ const express = require("express");
 const app = express();
 
 let bbs = [];  // 本来はDBMSを使用するが，今回はこの変数にデータを蓄える
-let userid = 1;
 
 app.set('view engine', 'ejs');
 app.use("/public", express.static(__dirname + "/public"));
@@ -100,91 +99,10 @@ app.post("/read", (req, res) => {
 app.post("/post", (req, res) => {
   const name = req.body.name;
   const message = req.body.message;
-  const createdAt = new Date();
-  const id = userid++;
-
-  console.log( [id,name, message] );
+  console.log( [name, message] );
   // 本来はここでDBMSに保存する
-  bbs.push( {id: id, name: name, message: message,space: "               ",createdAt: createdAt.toISOString()} );
+  bbs.push( { name: name, message: message } );
   res.json( {number: bbs.length } );
-});
-
-
-
-app.put("/bbs/:id", (req, res) => {
-  const id = Number(req.params.id); // リクエストされた投稿ID
-  const newmessage = req.body.message; // 新しいメッセージ
-
-  console.log(`PUT /bbs/${id}, New Message: ${newmessage}`);
-
-  // IDで投稿を検索
-  const post = bbs.find(post => post.id === id);
-
-  if (post) {
-    // メッセージを更新
-    post.message = newmessage;
-    res.json({ success: true, updatedPost: post }); // 成功レスポンス
-  } else {
-    // 該当IDが存在しない場合
-    res.status(404).json({ success: false, message: "Post not found" });
-  }
-});
-
-
-app.delete("/bbs/:id", (req, res) => {
-  console.log(`DELETEリクエスト: ${req.params.id}`);
-  const id = Number(req.params.id);
-
-  // 投稿のインデックスを検索
-  const index = bbs.findIndex(post => post.id === id);
-
-  if (index !== -1) {
-      // インデックスが見つかった場合、投稿を削除
-      const deletedPost = bbs.splice(index, 1)[0];
-      res.json({ success: true, deletedPost });
-  } else {
-      // 投稿が見つからない場合、404エラーを返す
-      res.status(404).json({ success: false, message: "Post not found" });
-  }
-});
-
-app.post('/post', (req, res) => {
-  const name = req.body.name;
-  const message = req.body.message;
-  const timestamp = new Date().toISOString(); // ISO形式でタイムスタンプを生成
-
-  const post = { id: bbs.length + 1, name, message, timestamp };
-  bbs.push(post);
-
-  res.json({ success: true, post });
-});
-
-app.get("/bbs", (req,res) => {
-    console.log("GET /BBS");
-    res.json( {test: "GET /BBS" });
-});
-
-app.post("/bbs", (req,res) => {
-    console.log("POST /BBS");
-    res.json( {test: "POST /BBS"});
-})
-
-
-
-
-app.get("/bbs/:id", (req,res) => {
-    console.log( "GET /BBS/" + req.params.id );
-    res.json( {test: "GET /BBS/" + req.params.id });
-});
-
-app.put("/bbs/:id", (req,res) => {
-    console.log( "PUT /BBS/" + req.params.id );
-    res.json( {test: "PUT /BBS/" + req.params.id });
-});
-
-app.delete("/bbs/:id", (req,res) => {
-    console.log( "DELETE /BBS/" + req.params.id );
-    res.json( {test: "DELETE /BBS/" + req.params.id });
 });
 
 app.listen(8080, () => console.log("Example app listening on port 8080!"));
