@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>健康管理アプリ</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>健康管理アプリ</h1>
+        <form id="health-form">
+            <label for="weight">体重 (kg):</label>
+            <input type="number" id="weight" required><br>
+
+            <label for="height">身長 (cm):</label>
+            <input type="number" id="height" required><br>
+
+            <label for="foods">食べたもの (例: りんご, バナナ,鶏むね肉,ご飯):</label>
+            <input type="text" id="foods" required><br>
+
+            <label for="exerciseTime">運動時間 (分):</label>
+            <input type="number" id="exerciseTime" required><br>
+
+            <label for="goalWeight">目標体重 (kg):</label>
+            <input type="number" id="goalWeight" required><br>
+
+            <button type="submit">データを保存</button>
+        </form>
+
+        <div id="result">
+            <h2>保存されたデータ</h2>
+            <ul id="data-list"></ul>
+        </div>
+
+        <div>
+            <h2>現状と目標体重との差</h2>
+            <div id="goal-difference"></div>
+        </div>
+
+        <canvas id="weightChart"></canvas>
+    </div>
+
+    <script src="app8.js"></script>
+</body>
+</html>

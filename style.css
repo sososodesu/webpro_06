@@ -1,0 +1,31 @@
+/* 基本のレイアウト */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+form {
+    margin-bottom: 30px;
+}
+
+label, input, button {
+    display: block;
+    margin: 10px 0;
+}
+
+input, button {
+    padding: 8px;
+}
+
+#result {
+    margin-top: 20px;
+    border-top: 2px solid #ccc;
+    padding-top: 20px;
+}
+
+#data-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
