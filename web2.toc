@@ -1,0 +1,15 @@
+\contentsline {section}{\numberline {1}利用者向け仕様}{2}{}%
+\contentsline {subsection}{\numberline {1.1}アプリケーションの目的}{2}{}%
+\contentsline {subsection}{\numberline {1.2}利用方法}{2}{}%
+\contentsline {subsection}{\numberline {1.3}データ例}{2}{}%
+\contentsline {section}{\numberline {2}管理者向け仕様}{3}{}%
+\contentsline {subsection}{\numberline {2.1}管理者の役割}{3}{}%
+\contentsline {subsection}{\numberline {2.2}データ管理}{3}{}%
+\contentsline {subsection}{\numberline {2.3}データのアクセス}{3}{}%
+\contentsline {section}{\numberline {3}開発者向け仕様}{4}{}%
+\contentsline {subsection}{\numberline {3.1}技術スタック}{4}{}%
+\contentsline {subsection}{\numberline {3.2}通信プロトコル}{4}{}%
+\contentsline {subsection}{\numberline {3.3}ソースコード}{4}{}%
+\contentsline {subsection}{\numberline {3.4}採用技術と理由}{5}{}%
+\contentsline {subsection}{\numberline {3.5}セキュリティ}{5}{}%
+\contentsline {subsection}{\numberline {3.6}エラーハンドリング}{5}{}%

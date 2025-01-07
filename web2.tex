@@ -1,0 +1,218 @@
+\documentclass[uplatex,dvipdfmx]{jsarticle}
+\usepackage[uplatex,deluxe]{otf} % UTF
+\usepackage[noalphabet]{pxchfon} % must be after otf package
+\usepackage{stix2} %欧文＆数式フォント
+\usepackage[fleqn,tbtags]{mathtools} % 数式関連 (w/ amsmath)
+\usepackage{listings}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{float}
+
+\begin{document}
+
+\title{健康管理アプリ仕様書}
+\author{24G1027 江戸颯冴}
+\date{2025年1月7日}
+\maketitle
+
+\section{はじめに}
+
+本仕様書は、体重管理アプリケーションの開発に関する仕様を記述したものである。
+本アプリケーションは、ユーザーが自分の体重、摂取した食べ物のカロリー、運動時間を記録し、それらのデータを元にグラフ化する機能を提供する。
+さらに、目標体重に対する進捗を表示する機能も含まれており、ユーザーが自分の健康管理をより効果的に行えるよう支援する。
+本仕様書では、利用者、管理者、開発者それぞれの視点から必要な機能とシステムの動作を詳述する。
+
+\section{利用者向け仕様}
+
+\subsection{データ入力}
+利用者は、以下のデータを入力することができる。
+\begin{itemize}
+    \item 体重（kg）
+    \item 身長（cm）
+    \item 摂取した食べ物（カンマ区切り）
+    \item 運動時間（分）
+    \item 目標体重（kg）（オプション）
+\end{itemize}
+
+これらのデータを入力し、送信することで、体重やカロリー摂取、運動の記録を保存できる。入力したデータはその場で検証され、形式が正しい場合にのみ保存される。
+
+\subsection{データの視覚化}
+ユーザーが入力したデータは、折れ線グラフとして可視化され、体重やカロリー摂取の変動を一目で確認できる。以下の例は、体重の推移を示す折れ線グラフである。
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.45\textwidth}  % 左側の画像
+        \centering
+        \includegraphics[width=6cm]{./webFig/rei1.jpeg}
+        \caption{質問項目の例}
+        \label{fig:left_image}
+    \end{minipage}
+    \hspace{0.05\textwidth}  % 画像間のスペース
+    \begin{minipage}{0.45\textwidth}  % 右側の画像
+        \centering
+        \includegraphics[width=8cm]{./webFig/rei2.jpeg}
+        \caption{実際に体重やカロリー摂取の変動を示す折れ線グラフ}
+        \label{fig:right_image}
+    \end{minipage}
+\end{figure}
+
+ユーザーの目標体重との差が表示され、目標達成までの進捗を知ることができる。
+差がプラスの場合、目標体重に近づいていることを示し、マイナスの場合は目標体重をオーバーしていることを示す。
+進捗バーやアラート機能を搭載し、目標達成に向けてユーザーをサポートする。
+
+\section{管理者向け仕様}
+
+\subsection{データの保存}
+管理者は、ユーザーが入力したデータを保存し、後でアクセスできるように管理する。
+データはサーバーに保存され、必要に応じて取り出し、表示することができる。データは日付ごとにグループ化され、アクセス効率が高い形式で保存される。
+
+\subsection{データベースの構造}
+データベースには以下の情報が保存される。
+\begin{itemize}
+    \item 日付（yyyy-mm-dd形式）
+    \item 体重（kg）
+    \item 摂取カロリー（kcal）
+    \item 運動時間（分）
+    \item ユーザーID（ユーザーごとに一意）
+\end{itemize}
+
+これらの情報を利用して、ユーザーごとの健康データを管理する。データベースは、複数のユーザー情報を効率的に取り扱えるよう、正規化されている。
+
+\subsection{バックアップ}
+定期的にデータベースのバックアップを取ることが推奨される。
+バックアップは安全な場所に保存し、データが失われないようにする。バックアップのスケジュールは自動化される。
+
+\section{開発者向け仕様}
+
+\subsection{システム構成}
+本システムは以下の技術で構成されている。
+\begin{itemize}
+    \item フロントエンド: HTML, CSS, JavaScript (Chart.js)
+    \item バックエンド: Node.js (Express)
+    \item データベース: 任意のRDB（例: MySQL, PostgreSQL）
+\end{itemize}
+
+フロントエンドは、ユーザーインターフェースを提供し、データの入力とグラフの描画を行う。
+バックエンドは、APIの設計とデータ保存機能を提供し、データベースと連携する。
+
+\subsection{API設計}
+データの保存はPOSTメソッドを使用して行い、サーバーとの双方向通信を行う。以下は、データを保存するためのAPIエンドポイントの設計例である。
+
+\subsubsection{POST /save-data}
+データをサーバーに送信し、保存するエンドポイント。
+\begin{itemize}
+    \item リクエストボディ: 表形式でのリクエスト例
+\end{itemize}
+
+\subsubsection{リクエスト例}
+
+\begin{tabular}{|c|c|}
+\hline
+キー & 値 \\
+\hline
+date & 2025-01-07 \\
+weight & 70.5 \\
+calories & 2500 \\
+exerciseTime & 30 \\
+\hline
+\end{tabular}
+
+\subsubsection{レスポンス例}
+図3,図4のようにレスポンスが行われる.
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.45\textwidth}  % 左側の画像
+        \centering
+        \includegraphics[width=8cm]{./webFig/er.jpeg}
+        \caption{失敗例}
+        \label{fig:left_image}
+    \end{minipage}
+    \hspace{0.05\textwidth}  % 画像間のスペース
+    \begin{minipage}{0.45\textwidth}  % 右側の画像
+        \centering
+        \includegraphics[width=8cm]{./webFig/su.jpeg}
+        \caption{成功例}
+        \label{fig:right_image}
+    \end{minipage}
+\end{figure}
+
+
+
+\subsection{グラフ描画}
+
+本アプリケーションでは、ユーザーの体重、摂取カロリー、運動時間を視覚的に表示するために、グラフを利用する。グラフは、入力されたデータをもとに動的に生成され、ユーザーが自分の健康管理状況を一目で確認できるようにする。
+
+グラフの描画には、JavaScriptのライブラリである**Chart.js**を使用している。Chart.jsは、簡単に折れ線グラフや棒グラフを描画できるため、データの推移を表示するのに適している。
+
+\begin{itemize}
+    \item 体重の推移を表示するための折れ線グラフ
+    \item 摂取カロリーの変動を示す棒グラフ
+    \item 目標体重に対する進捗を示す進捗バー
+\end{itemize}
+
+以下は、Chart.jsを使用して体重の推移を表示するためのコード例である。
+
+\begin{lstlisting}language=JavaScript
+var ctx = document.getElementById('weightChart').getContext('2d');
+var weightChart = new Chart(ctx, {
+    type: 'line',  // グラフの種類（折れ線グラフ）
+    data: {
+        labels: ['2025-01-01', '2025-01-02', '2025-01-03', '2025-01-04'],  // 日付
+        datasets: [{
+            label: '体重 (kg)',
+            data: [70.5, 70.3, 70.0, 69.8],  // 体重データ
+            borderColor: 'rgba(75, 192, 192, 1)',  // 線の色
+            borderWidth: 2,
+            fill: false  // 塗りつぶしなし
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            x: {
+                type: 'category',
+                title: {
+                    display: true,
+                    text: '日付'
+                }
+            },
+            y: {
+                title: {
+                    display: true,
+                    text: '体重 (kg)'
+                }
+            }
+        }
+    }
+});
+\end{lstlisting}
+
+このコードでは、ユーザーが入力した体重データを折れ線グラフとして表示する。`labels`には日付が、`data`には対応する体重の値が設定される。グラフの外観は、`borderColor`で線の色、`borderWidth`で線の太さを指定している。
+
+ユーザーインターフェースには、グラフを描画するためのHTMLのキャンバス要素を設置する。以下は、HTMLのキャンバス要素の例である。
+
+\begin{lstlisting}[language=HTML]
+<canvas id="weightChart" width="400" height="200"></canvas>
+\end{lstlisting}
+
+このキャンバス要素に、JavaScriptで設定したグラフを描画することができる。
+
+
+
+
+\subsection{採用技術の概要と理由}
+本アプリケーションでは、以下の技術を採用している。
+
+\begin{itemize}
+    \item **Node.js (Express)**: 高速なサーバーサイド開発を行うために採用した。非同期処理が得意であり、高いパフォーマンスを発揮する。
+    \item **Chart.js**: グラフ描画ライブラリ。視覚的にわかりやすいグラフを簡単に作成できるため、体重やカロリー摂取の推移をグラフ化するために使用している。
+    \item **JSON**: データのやり取りにはJSON形式を採用した。シンプルで軽量であり、JavaScriptとの親和性が高いため。
+\end{itemize}
+
+\section{GitHubリポジトリ}
+ソースコードは以下のGitHubリポジトリに置かれている。
+\begin{itemize}
+    \item URL: \texttt{https://github.com/yourusername/your-repository}
+\end{itemize}
+
+\end{document}
