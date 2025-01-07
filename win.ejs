@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>勝ち数と試合数</title>
+  <style>
+    body { font-family: Arial, sans-serif; }
+    h1 { color: #4CAF50; }
+    .result { font-size: 20px; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h1>勝ち数と試合数</h1>
+  <div class="result">
+    <p>現在の勝ち数: <%= win %> 回</p>
+    <p>現在のトータル試合数: <%= total %> 回</p>
+  </div>
+
+  <div>
+    <p><a href="/janken?hand=グー&win=<%= win %>&total=<%= total %>">ゲームに戻る</a></p>
+  </div>
+</body>
+</html>

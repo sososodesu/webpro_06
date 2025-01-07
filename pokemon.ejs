@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ポケモンバトル</title>
+</head>
+<body>
+    <h1>ポケモンを選んでね</h1>
+    <form action="/battle" method="POST">
+        <label for="userPokemon">あなたのポケモンを選んでね:</label>
+        <select name="userPokemon" id="userPokemon">
+            <% pokemonList.forEach((pokemon, index) => { %>
+                <option value="<%= index %>"><%= pokemon.name %></option>
+            <% }) %>
+        </select>
+        <button type="submit">バトル開始</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>バトル結果</title>
+</head>
+<body>
+    <h1>バトル結果</h1>
+    <p><strong><%= userPokemon.name %></strong> vs <strong><%= opponentPokemon.name %></strong></p>
+    <p><%= result || 'バトル開始！' %></p>
+
+    <h2>技選択</h2>
+    <form action="/battle/attack" method="POST">
+        <input type="hidden" name="userPokemon" value="<%= pokemonList.indexOf(userPokemon) %>">
+        <input type="hidden" name="opponentPokemon" value="<%= pokemonList.indexOf(opponentPokemon) %>">
+
+        <label for="userMove">技選択:</label>
+        <select name="userMove" id="userMove">
+            <% userPokemon.moves.forEach((move, index) => { %>
+                <option value="<%= index %>"><%= move.name %> (ダメージ: <%= move.damage %>, タイプ: <%= move.type %>)</option>
+            <% }) %>
+        </select>
+        <button type="submit">技を使う</button>
+    </form>
+
+    <p><strong><%= userPokemon.name %></strong>のHP: <%= userPokemon.hp %></p>
+    <p><strong><%= opponentPokemon.name %></strong>のHP: <%= opponentPokemon.hp %></p>
+
+    <!-- バトルが終了した場合の再戦ボタン -->
+    <% if (userPokemon.hp <= 0 || opponentPokemon.hp <= 0) { %>
+        <form action="/battle/reset" method="POST">
+            <input type="hidden" name="userPokemon" value="<%= pokemonList.indexOf(userPokemon) %>">
+            <button type="submit">もう一度バトル</button>
+        </form>
+    <% } %>
+</body>
+</html>
