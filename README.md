@@ -2,10 +2,9 @@
 
 ファイル名|説明
 -|-
-app.js|プログラム本体
-views/pokemon.ejs|ポケモン選択画面.
-views/battle.ejs|バトル画面.
-package.json|プロジェクトの依存関係を管理するファイル.
+app6.js|プログラム本体
+pokemon.ejs|ポケモン選択画面.
+battle.ejs|バトル画面.
 
 ## 仕様書
 1. Webページへログイン
